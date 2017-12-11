@@ -1,0 +1,144 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Penrose Users Api",
+    "version": "v1"
+  },
+  "basePath": "/api",
+  "definitions": {
+    "user": {
+      "type": "object",
+      "properties": {
+        "full_name": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "account_key": {
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "create user",
+        "tags": [
+          "users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "full_name": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "metadata": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "password",
+                "email",
+                "key",
+                "phone_number"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "users api",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "422": {
+            "description": "users api",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "errors": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users?query={query}": {
+      "get": {
+        "summary": "users api",
+        "tags": [
+          "users"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get users",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/user"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

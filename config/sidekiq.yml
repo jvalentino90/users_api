@@ -1,0 +1,8 @@
+# sidekiq settings
+# see: https://github.com/mperham/sidekiq/blob/master/examples/config.yml
+ :verbose: false
+ :concurrency: 15
+ :queues:
+   - <%= `hostname`.strip %>
+   - [default, 2]
+   - [solr, 1]
